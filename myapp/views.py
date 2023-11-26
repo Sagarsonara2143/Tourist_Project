@@ -34,6 +34,31 @@ def contact(request):
 
 
 def register(request):
-	return render(request,"register.html",{'is_register_page':True})
-
-
+	if request.method=="POST":
+		try:
+			User.objects.get(email=request.POST['email'])
+			msg="Email Id is already registered"
+			return render(request,'register.html',{'msg':msg,'is_register_page':True})
+		except:
+			try:
+				User.objects.get(mobile=request.POST['mobile'])	
+				msg="Mobile Number Already Registred"
+				return render(request,'register.html',{'msg':msg,'is_register_page':True})
+			except:
+				if request.POST['password']==request.POST['confirm_password']:
+					User.objects.create(
+						first_name=request.POST['first_name'],
+						last_name=last_nameequest.POST['last_name'],
+						email=request.POST['email'],
+						mobile=request.POST['mobile'],
+						address=request.POST['address'],
+						password=request.POST['password'],
+						profile_picture=request.FILES['profile_picture'],
+						)
+					msg="User Sign Up Successfully"
+					return render(request,'login.html',{'msg':msg,'is_register_page':True})
+				else:
+					msg="Password and Confirm password does not matched"
+					return render(request,'register.html',{'msg':msg,'is_register_page':True})
+	else:
+		return render(request,"register.html",{'is_register_page':True})
