@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from .models import User
 # Create your views here.
 
 def index(request):
@@ -48,12 +48,12 @@ def register(request):
 				if request.POST['password']==request.POST['confirm_password']:
 					User.objects.create(
 						first_name=request.POST['first_name'],
-						last_name=last_nameequest.POST['last_name'],
+						last_name=request.POST['last_name'],
 						email=request.POST['email'],
 						mobile=request.POST['mobile'],
 						address=request.POST['address'],
 						password=request.POST['password'],
-						profile_picture=request.FILES['profile_picture'],
+						profile_picture=request.FILES['profile_pic'],
 						)
 					msg="User Sign Up Successfully"
 					return render(request,'login.html',{'msg':msg,'is_register_page':True})
