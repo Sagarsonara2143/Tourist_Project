@@ -62,3 +62,8 @@ def register(request):
 					return render(request,'register.html',{'msg':msg,'is_register_page':True})
 	else:
 		return render(request,"register.html",{'is_register_page':True})
+
+
+
+def login(request):
+	return render (request,"login.html",{'msg':msg,'is_register_page':True})	
