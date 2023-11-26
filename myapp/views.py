@@ -28,3 +28,6 @@ def team(request):
 
 def testimonial(request):
 	return render(request,"testimonial.html",{'is_testimonial_page':True})
+
+def contact(request):
+	return render(request,"contact.html",{'is_contact_page':True})
