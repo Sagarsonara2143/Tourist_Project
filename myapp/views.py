@@ -64,6 +64,22 @@ def register(request):
 		return render(request,"register.html",{'is_register_page':True})
 
 
-
 def login(request):
-	return render (request,"login.html",{'msg':msg,'is_register_page':True})	
+
+	if request.method == "POST":
+		try:
+			user = User.objects.get(email=request.POST['email'])
+			if user.password == request.POST['password']:
+				request.session['email'] = use.email
+				request.session['first_name'] = user.first_name
+				request.session['profile_picture'] = user.profile_picture
+				return redirect('index')
+			else:
+				msg = "Incorrect Password"
+				return render(request,"login.html",{'msg':msg,'is_login_page':True})
+		except:
+			msg = "Email Not Registered"
+			return render(request,"login.html",{'msg':msg,'is_login_page':True})
+
+	else:
+		return render (request,"login.html",{'is_login_page':True})	
