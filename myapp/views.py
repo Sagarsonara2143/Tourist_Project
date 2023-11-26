@@ -31,3 +31,9 @@ def testimonial(request):
 
 def contact(request):
 	return render(request,"contact.html",{'is_contact_page':True})
+
+
+def register(request):
+	return render(request,"register.html",{'is_register_page':True})
+
+
